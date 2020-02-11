@@ -20,8 +20,6 @@ android {
     }
     buildTypes.each{
         it.buildConfigField 'String', 'THE_MOVIE_DB_API_TOKEN', MyTheMovieDBApiToken
-        it.buildConfigField 'String', 'sortBy', sortBy
-        it.buildConfigField 'String', 'releaseYear', releaseYear
     }
 
 }

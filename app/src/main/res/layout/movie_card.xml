@@ -8,44 +8,53 @@
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/card_margin"
-        android:elevation="3dp"
-        card_view:cardCornerRadius="@dimen/card_movie_radius">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="3dp">
+        <!--android:layout_gravity="center"-->
+
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/movie_cover_height"
-                android:id="@+id/thumbnail"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:scaleType="fitXY"/>
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:id="@+id/poster"/>
+                <!--android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitXY"-->
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/thumbnail"
-                android:paddingLeft="@dimen/movie_title_padding"
-                android:paddingRight="@dimen/movie_title_padding"
-                android:paddingTop="@dimen/movie_title_padding"
                 android:textColor="@color/movie_title"
-                android:textSize="@dimen/movie_title"/>
+                android:textSize="15sp"
+                android:layout_toRightOf="@+id/poster"
+                android:layout_toEndOf="@id/poster"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"/>
 
             <TextView
-                android:id="@+id/userrating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title"
-                android:paddingLeft="@dimen/movie_title_padding"
-                android:paddingRight="@dimen/movie_title_padding"
-                android:paddingBottom="@dimen/user_rating_padding_bottom"
+                android:id="@+id/release_date"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:layout_toRightOf="@id/poster"
+                android:layout_toEndOf="@id/poster"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_below="@id/title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/user_rating"
+                android:layout_below="@+id/release_date"
                 android:textColor="@color/colorAccent"
-                android:textSize="@dimen/user_rating"/>
+                android:textSize="12sp"/>
 
         </RelativeLayout>
 

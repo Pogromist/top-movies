@@ -17,9 +17,6 @@ import com.delaroystudios.movieapp.model.Movie;
 
 import java.util.List;
 
-/**
- * Created by delaroy on 5/18/17.
- */
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHolder> {
 
     private Context mContext;
@@ -43,13 +40,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
     public void onBindViewHolder(final MoviesAdapter.MyViewHolder viewHolder, int i){
         viewHolder.title.setText(movieList.get(i).getOriginalTitle());
         String vote = Double.toString(movieList.get(i).getVoteAverage());
-        viewHolder.userrating.setText(vote);
+        //viewHolder.userrating.setText(vote);
 
         String poster = "https://image.tmdb.org/t/p/w500" + movieList.get(i).getPosterPath();
-
         Glide.with(mContext)
                 .load(poster)
-                .into(viewHolder.thumbnail);
+                .into(viewHolder.poster);
 
     }
 
@@ -65,13 +61,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView title, userrating;
-        public ImageView thumbnail;
+        public ImageView poster;
 
         public MyViewHolder(View view){
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             userrating = (TextView) view.findViewById(R.id.userrating);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+            poster = (ImageView) view.findViewById(R.id.poster);
 
             view.setOnClickListener(new View.OnClickListener(){
                 @Override

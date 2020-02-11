@@ -29,7 +29,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
     Movie movie;
-    String thumbnail, movieName, synopsis, rating, dateOfRelease;
+    String poster, movieName, synopsis, rating, dateOfRelease;
     int movie_id;
 
     @Override
@@ -51,14 +51,14 @@ public class DetailActivity extends AppCompatActivity {
 
             movie = getIntent().getParcelableExtra("movies");
 
-            thumbnail = movie.getPosterPath();
+            poster = movie.getPosterPath();
             movieName = movie.getOriginalTitle();
             synopsis = movie.getOverview();
             rating = Double.toString(movie.getVoteAverage());
             dateOfRelease = movie.getReleaseDate();
             movie_id = movie.getId();
 
-            String poster = "https://image.tmdb.org/t/p/w500" + thumbnail;
+            String poster = "https://image.tmdb.org/t/p/w500" + this.poster;
 
             Glide.with(this)
                     .load(poster)
@@ -77,14 +77,14 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.detail_menu, menu);
         return true;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
@@ -93,7 +93,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     private Bitmap getBitmapFromView(View view) {
         Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
