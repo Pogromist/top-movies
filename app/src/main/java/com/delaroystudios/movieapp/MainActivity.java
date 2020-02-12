@@ -1,14 +1,12 @@
 package com.delaroystudios.movieapp;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,13 +14,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
 import android.widget.Toast;
 
 import com.delaroystudios.movieapp.adapter.MoviesAdapter;
 import com.delaroystudios.movieapp.api.Service;
 import com.delaroystudios.movieapp.model.Movie;
 import com.delaroystudios.movieapp.model.MoviesResponse;
+import com.wdullaer.materialdatetimepicker.date.DatePickerController;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private RecyclerView recyclerView;
     private MoviesAdapter adapter;
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private AppCompatActivity activity = MainActivity.this;
     public static final String LOG_TAG = MoviesAdapter.class.getName();
     int cacheSize = 10 * 1024 * 1024; // 10 MiB
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             context = ((ContextWrapper) context).getBaseContext();
         }
         return null;
-
     }
 
     private void initViews(){
@@ -80,12 +77,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         adapter = new MoviesAdapter(this, movieList);
 
 
-
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-        }
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
@@ -93,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.main_content);
-        swipeContainer.setColorSchemeResources(android.R.color.holo_orange_dark);
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_dark);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
             public void onRefresh(){
@@ -102,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         });
 
-        checkSortOrder();
+        loadJSON();
 
     }
 
@@ -174,22 +166,5 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             Log.d("Error", e.getMessage());
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }*/
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s){
-        Log.d(LOG_TAG, "Preferences updated");
-        checkSortOrder();
-    }
-
-    private void checkSortOrder(){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        loadJSON();
     }
 }

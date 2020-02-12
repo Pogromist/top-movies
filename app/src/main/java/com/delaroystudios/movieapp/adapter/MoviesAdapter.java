@@ -40,7 +40,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
     public void onBindViewHolder(final MoviesAdapter.MyViewHolder viewHolder, int i){
         viewHolder.title.setText(movieList.get(i).getOriginalTitle());
         String vote = Double.toString(movieList.get(i).getVoteAverage());
-        //viewHolder.userrating.setText(vote);
+        viewHolder.userRating.setText("Vote Average: " + vote);
+        viewHolder.synopsis.setText(movieList.get(i).getOverview());
+        viewHolder.dateOfRelease.setText(movieList.get(i).getReleaseDate());
 
         String poster = "https://image.tmdb.org/t/p/w500" + movieList.get(i).getPosterPath();
         Glide.with(mContext)
@@ -60,14 +62,18 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title, userrating;
+        public TextView title, userRating, dateOfRelease, synopsis;
         public ImageView poster;
 
         public MyViewHolder(View view){
+
             super(view);
+
             title = (TextView) view.findViewById(R.id.title);
-            userrating = (TextView) view.findViewById(R.id.userrating);
+            userRating = (TextView) view.findViewById(R.id.user_rating);
             poster = (ImageView) view.findViewById(R.id.poster);
+            dateOfRelease = (TextView) view.findViewById(R.id.release_date);
+            synopsis = (TextView) view.findViewById(R.id.overview);
 
             view.setOnClickListener(new View.OnClickListener(){
                 @Override

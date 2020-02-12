@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by delaroy on 5/18/17.
- */
 public class Movie implements Parcelable {
     @SerializedName("poster_path")
     private String posterPath;
