@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 
-import com.delaroystudios.movieapp.adapter.TestAdapter;
 import com.delaroystudios.movieapp.model.Movie;
 
 import org.hamcrest.Description;

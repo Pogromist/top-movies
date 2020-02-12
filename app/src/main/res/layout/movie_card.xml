@@ -8,7 +8,6 @@
     app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="true">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,13 +71,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button_schedule"
+            android:id="@+id/btnNotify"
             android:text="Schedule viewing"
             android:background="@drawable/my_button"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="5dp"
-            android:layout_below="@id/poster"/>
+            android:layout_below="@id/poster"
+            android:onClick="onClickMain"/>
 
     </RelativeLayout>
 
