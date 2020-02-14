@@ -1,13 +1,9 @@
-package com.delaroystudios.movieapp;
+package com.myproject.topmovies;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.design.widget.NavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,17 +12,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.allyants.notifyme.NotifyMe;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
-import com.delaroystudios.movieapp.adapter.MoviesAdapter;
-import com.delaroystudios.movieapp.api.Service;
-import com.delaroystudios.movieapp.model.Movie;
-import com.delaroystudios.movieapp.model.MoviesResponse;
+import com.myproject.topmovies.adapter.MoviesAdapter;
+import com.myproject.topmovies.api.Service;
+import com.myproject.topmovies.model.Movie;
+import com.myproject.topmovies.model.MoviesResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     private List<Movie> movieList;
     ProgressDialog pd;
     private SwipeRefreshLayout swipeContainer;
-    private AppCompatActivity activity = MainActivity.this;
-    public static final String LOG_TAG = MoviesAdapter.class.getName();
     int cacheSize = 10 * 1024 * 1024; // 10 MiB
 
     Calendar now = Calendar.getInstance();
@@ -67,11 +59,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         setContentView(R.layout.activity_main);
 
         initViews();
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        //onClickMain();
-
-        /*setContentView(R.layout.movie_card);
-        Button btnNotify = findViewById(R.id.btnNotify);*/
 
         dpd = DatePickerDialog.newInstance(MainActivity.this,
                 now.get(Calendar.YEAR),
@@ -84,28 +71,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 now.get(Calendar.SECOND),
                 true);
 
-        /*recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickMain();
-            }
-        });*/
-        /*btnNotify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //dpd.show(getFragmentManager(), "Datepickerdialog");
-                onClickMain();
-            }
-        });*/
-
     }
 
-    public void onClickMain(View view) { // обработчик нажатия кнопки
+    public void onClickMain(View view) {
         dpd.show(getFragmentManager(), "Datepickerdialog");
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) { //DatePickerDialog
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         now.set(Calendar.YEAR, year);
         now.set(Calendar.MONTH, monthOfYear);
         now.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -125,22 +98,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         notifyMe.color(75, 71, 222, 255);//Color of notification header
         notifyMe.led_color(255,255,255,255);//Color of LED when notification pops up
         notifyMe.time(now);//The time to popup notification
-        notifyMe.addAction(new Intent(), "Snooze", false);
-        notifyMe.addAction(new Intent(), "Dismiss", true);
-        notifyMe.addAction(new Intent(), "Done");
         notifyMe.large_icon(R.mipmap.ic_launcher);//Icon resource by ID
         notifyMe.build();
-    }
-
-   public Activity getActivity() {
-        Context context = this;
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        return null;
     }
 
     private void initViews() {

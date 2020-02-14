@@ -1,6 +1,6 @@
-package com.delaroystudios.movieapp.api;
+package com.myproject.topmovies.api;
 
-import com.delaroystudios.movieapp.model.MoviesResponse;
+import com.myproject.topmovies.model.MoviesResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
